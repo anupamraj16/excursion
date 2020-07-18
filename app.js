@@ -6,20 +6,25 @@ const userRouter = require('./routes/userRoutes');
 
 const app = express();
 
-// 1) MIDDLEWARES
+// GLOBAL MIDDLEWARES
+
+// Body-Parser
+app.use(express.json());
+
+// Request Logger During Development
 if (process.env.NODE_ENV === 'development') {
   // reading of environment variables is done in server.js
   // but we can access process.env anywhere because it is available everywhere
   app.use(morgan('dev'));
 }
 
-app.use(express.json()); // parses the request body
-
+// Serve Static Files
 app.use(express.static(`${__dirname}/public`));
 // serves static files in public folder
 // if a URL is not handled by any route handler, it goes to public folder
 
-// 2) Mounting ROUTES
+// Mount Routes
+
 app.use('/api/v1/tours', tourRouter); // app.use is used to mount a middleware
 app.use('/api/v1/users', userRouter);
 
