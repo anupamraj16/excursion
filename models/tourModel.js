@@ -3,6 +3,7 @@ const slugify = require('slugify');
 
 const tourSchema = new mongoose.Schema(
   {
+    // SCHEMA Definitions
     name: {
       type: String,
       required: [true, 'A tour must have a name'],
@@ -46,7 +47,7 @@ const tourSchema = new mongoose.Schema(
       type: Number,
       validate: {
         validator: function (val) {
-          // this only points to current doc on NEW document creation
+          // this keyword only points to current doc on NEW document creation
           return val < this.price;
         },
         message: 'Discoun price ({VALUE}) should be below regular price',
@@ -77,34 +78,27 @@ const tourSchema = new mongoose.Schema(
       default: false,
     },
   },
+  //SCHEMA Options
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }
 );
 
+// Virtual properties
+// To get virtual properties in the output virtual should be set to true in schema options
 tourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
 });
 
-// DOCUMENT MIDDLEWARE: runs before .save() and .create()
+// DOCUMENT MIDDLEWARE: runs after .save() and .create() command have been issued and actual saving of the document
 tourSchema.pre('save', function (next) {
+  // pre document middleware gets access to next
   this.slug = slugify(this.name, { lower: true });
   next();
 });
 
-// tourSchema.pre('save', function(next) {
-//   console.log('Will save document...');
-//   next();
-// });
-
-// tourSchema.post('save', function(doc, next) {
-//   console.log(doc);
-//   next();
-// });
-
 // QUERY MIDDLEWARE
-// tourSchema.pre('find', function(next) {
 tourSchema.pre(/^find/, function (next) {
   this.find({ secretTour: { $ne: true } });
 
@@ -113,6 +107,7 @@ tourSchema.pre(/^find/, function (next) {
 });
 
 tourSchema.post(/^find/, function (docs, next) {
+  // post middleware gets access to current document and next
   console.log(`Query took ${Date.now() - this.start} milliseconds!`);
   next();
 });
@@ -120,7 +115,6 @@ tourSchema.post(/^find/, function (docs, next) {
 // AGGREGATION MIDDLEWARE
 tourSchema.pre('aggregate', function (next) {
   this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
-
   console.log(this.pipeline());
   next();
 });

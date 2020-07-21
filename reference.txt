@@ -4,6 +4,13 @@
 // 4. create and connect to database, create a data model with validators. change controllers to deal with DB
 // * Another way of creating documents. const newTour = new Tour({place data here}); newTour.save() || Tour.create({place data here})
 // 5. apply query filtering, req.query- create a hard copy (not just a reference) of queryObj using destructuring to filter out other parameters [page, sort, limit, fields]. first build the query and then execute it (do not consume the query right away with await in .find () so that pageing and sorting etc can be implemented)
+    const tours = await Tour.find(req.query);
+    const tours = await Tour.find({ duration: 5, difficulty: 'easy' });
+    const tours = await Tour.find()
+      .where('duration')
+      .equals(5)
+      .where('difficulty')
+      .equals('easy');
 // 6. advanced filtering: URL- localhost/api/v1/tours?duration[gte]=5. mongodb find object- {duration : {$gte : 5}}, req.query- duration : {gte : '5'}}. the difference between mongodb find object and req.query is $ and '' only. stringify the queryObj, implement for gte, gt, lte, lt using regex- queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`). get the queryObj back from the string
 // 7. check for req.query.sort and apply sorting by .sort(req.query.sort). price for ascending and -price for descending. mongoose sorting object- sort('price ratingsAverage'). URL- localhost/api/v1/tours?sort=price,ratingsAverage
 // 8. apply fields limiting. URL- localhost/api/v1/tours?fields=name,duration,difficulty,price. mongoose object- .select('name duration difficulty price'). exclude __v by .select('-__v'). fields can be excluded in schema itself by select : false
@@ -12,9 +19,9 @@
 // 11. repeat- refactor by using class APIFeatures {constructor (queryObj, queryString)}. one example of the queryObj could be Tour.find(). chain all the filtering, sorting, limiting and paginating queries at the end to get the result
 // 12. aggregation pipeline. use await Tour.aggregate( [different stages- $match: {query object}, $group: { _id : }] )
 // 13. unwinding and projecting. Tour.aggregate([ { $unwind : '$startDates' } ]), $month, $push, $addFields, $project uses 0/1, $limit
-// 14. virtual properties. tourSchema.virtual('propertyName').get(function(){ return this.abcd }). add { toJSON: { virtuals : true}, toObject: { virtuals : true} } to the schema
-// *   Four type of middlewares in mongoose- document, query, aggregate, model. Middlewares are defined on schemas
-// 15. document middleware. tourSchema.pre('save', function(next) { this.slug = slugify( this.name, { lower : true } ) next()}). runs before .save() and .create() but not for insertMany(). pre document middleware has access to next(), post middleware has access to document and next() both. post runs after all pre have been completed
+// 14. virtual properties. tourSchema.virtual('propertyName').get(function(){ return this.abcd }). add { toJSON: { virtuals : true}, toObject: { virtuals : true} } to the schema as schema options- 1st object is schema definitions, 2nd object is options
+// *   Middlewares are called pre or post hooks in Mongoose. Save/Find is the Hook. Four type of middlewares in mongoose- document, query, aggregate, model. Middlewares are defined on schemas. pre middleware has this keyword, post doesn't
+// 15. document middleware. tourSchema.pre('save', function(next) { this.slug = slugify( this.name, { lower : true } ) next()}). runs before .save() and .create() but not for insertMany(). pre document middleware has access to next(), post middleware has access to document that was just saved and next() both. post runs after all pre have been completed
 // 16. query middleware. tourSchema.pre(/^find/, function(next) { this.find( { secretTour : { $ne : true } } ) next()}). .post(/^find/,....)
 // 17. aggregation middleware. tourSchema.pre('aggregate', function(next)...). .pipeline().unshift( { $match : {secretTour : {$ne:true} } } )- adds aggregation object before the aggregation pipeline
 // 18. data validation and custom validators. validate: {validator: function (val) {// this only points to current doc on NEW document creation return val < this.price;},message: 'Discoun price ({VALUE}) should be below regular price',}
