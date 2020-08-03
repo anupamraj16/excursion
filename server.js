@@ -10,7 +10,7 @@ dotenv.config({ path: `${__dirname}/config.env` });
 
 process.on('uncaughtException', (err) => {
   console.log(err.name, err.message);
-  process.exit();
+  process.exit(1);
 });
 
 const app = require('./app'); // this line should be after the above line so that environment variables are included in the process.env before getting access to app file
@@ -41,6 +41,6 @@ const server = app.listen(port, () => {
 process.on('unhandledRejection', (err) => {
   console.log(err.name, err.message);
   server.close(() => {
-    process.exit();
+    process.exit(1);
   });
 });
