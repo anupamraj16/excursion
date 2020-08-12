@@ -27,6 +27,7 @@ app.enable('trust proxy');
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
+// EXCURSION
 // GLOBAL MIDDLEWARES
 
 // Implement CORS
