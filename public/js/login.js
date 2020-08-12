@@ -47,9 +47,10 @@ export const forgotPassword = async (email) => {
 
 export const resetPassword = async (password, passwordConfirm) => {
   try {
+    const token = document.getElementById('token').value;
     const res = await axios({
-      method: 'POST',
-      url: '/api/v1/users/resetPassword/:resetToken',
+      method: 'PATCH',
+      url: `/api/v1/users/resetPassword/${token}`,
       data: {
         password,
         passwordConfirm,
@@ -57,7 +58,7 @@ export const resetPassword = async (password, passwordConfirm) => {
     });
 
     if (res.data.status === 'success') {
-      showAlert('success', 'Check your email!');
+      showAlert('success', 'Password updated successfully');
       window.setTimeout(() => {
         location.assign('/');
       }, 1000);

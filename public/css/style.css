@@ -1224,7 +1224,8 @@ body {
 
 .login-form,
 .signup-form,
-.forgotPassword-form {
+.forgotPassword-form,
+.resetPassword-form {
   margin: 0 auto;
   max-width: 55rem;
   background-color: #fff;
