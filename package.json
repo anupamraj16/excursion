@@ -4,7 +4,7 @@
   "description": "Built using modern technologies: node.js, express, mongodb, mongoose etc",
   "main": "app.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "dev": "parcel ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
     "build": "parcel build ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
   },

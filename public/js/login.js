@@ -24,6 +24,27 @@ export const login = async (email, password) => {
   }
 };
 
+export const forgotPassword = async (email) => {
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: '/api/v1/users/forgotPassword',
+      data: {
+        email: email,
+      },
+    });
+
+    if (res.data.status === 'success') {
+      showAlert('success', 'Check your email!');
+      window.setTimeout(() => {
+        location.assign('/');
+      }, 1000);
+    }
+  } catch (err) {
+    showAlert('error', err.response.data.message);
+  }
+};
+
 export const logout = async () => {
   try {
     const res = await axios({

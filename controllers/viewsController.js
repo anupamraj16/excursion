@@ -53,6 +53,9 @@ exports.getSignupForm = (req, res) => {
     title: "Let's Get Started",
   });
 };
+exports.getForgotPasswordForm = (req, res) => {
+  res.status(200).render('forgotPassword');
+};
 
 exports.getAccount = (req, res) => {
   res.status(200).render('account', {
