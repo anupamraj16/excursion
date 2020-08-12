@@ -30,7 +30,29 @@ export const forgotPassword = async (email) => {
       method: 'POST',
       url: '/api/v1/users/forgotPassword',
       data: {
-        email: email,
+        email,
+      },
+    });
+
+    if (res.data.status === 'success') {
+      showAlert('success', 'Check your email!');
+      window.setTimeout(() => {
+        location.assign('/');
+      }, 1000);
+    }
+  } catch (err) {
+    showAlert('error', err.response.data.message);
+  }
+};
+
+export const resetPassword = async (password, passwordConfirm) => {
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: '/api/v1/users/resetPassword/:resetToken',
+      data: {
+        password,
+        passwordConfirm,
       },
     });
 

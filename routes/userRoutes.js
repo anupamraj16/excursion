@@ -20,7 +20,7 @@ router.patch(
   userController.resizeUserPhoto,
   userController.updateMe
 );
-router.patch('/updateMyPassword', authController.updatePassword);
+router.patch('/updatePassword', authController.updatePassword);
 router.delete('/deleteMe', userController.deleteMe);
 
 // Routes below are only for admin
