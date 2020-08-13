@@ -1,5 +1,5 @@
 {
-  "name": "natours",
+  "name": "excursion",
   "version": "1.0.0",
   "description": "Built using modern technologies: node.js, express, mongodb, mongoose etc",
   "main": "app.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anupamraj7/natours.git"
+    "url": "git+https://github.com/anupamraj7/excursion.git"
   },
   "author": "Anupam Raj",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/anupamraj7/natours/issues"
+    "url": "https://github.com/anupamraj7/excursion/issues"
   },
-  "homepage": "https://github.com/anupamraj7/natours#readme",
+  "homepage": "https://github.com/anupamraj7/excursion#readme",
   "dependencies": {
     "@babel/polyfill": "^7.10.4",
     "axios": "^0.19.2",
