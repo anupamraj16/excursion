@@ -29,9 +29,9 @@ html {
 
 body {
   line-height: 1.6;
-  font-weight: 300;
+  font-weight: 400;
   font-family: 'Raleway', sans-serif;
-  color: #777;
+  color: #5a5a5a;
 
   min-height: 100vh;
   display: -webkit-box;
