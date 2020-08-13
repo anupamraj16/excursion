@@ -30,9 +30,9 @@ html {
 body {
   line-height: 1.6;
   font-weight: 300;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Raleway', sans-serif;
   color: #777;
-  padding: 3rem;
+
   min-height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -119,7 +119,7 @@ ion-icon {
   text-transform: uppercase;
   font-weight: 700;
 
-  background-image: linear-gradient(to right, #17c0eb, #227093);
+  background-image: linear-gradient(to right, #ff5252, #b33939);
   -webkit-background-clip: text;
   color: transparent;
   letter-spacing: 0.1rem;
@@ -218,7 +218,7 @@ ion-icon {
 }
 
 .btn--blue {
-  background-color: #17c0eb;
+  background-color: #b33939;
   color: #fff;
 }
 .btn--blue:hover {
@@ -289,7 +289,7 @@ ion-icon {
 }
 
 .header {
-  background-color: #34ace0;
+  background-color: #b33939;
   padding: 0 5rem;
   height: 8rem;
   position: relative;
@@ -548,7 +548,7 @@ ion-icon {
 
 .mapboxgl-popup-content {
   text-align: center;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Raleway', sans-serif;
   padding: 1.5rem !important;
   font-size: 1.4rem;
   -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15) !important;
@@ -873,7 +873,7 @@ ion-icon {
   align-items: center;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
-  font-weight: 400;
+  font-weight: 500;
   background: none;
   border: none;
   cursor: pointer;
