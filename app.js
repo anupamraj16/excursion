@@ -1,6 +1,7 @@
 const path = require('path');
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -17,6 +18,7 @@ const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const AppError = require('./utils/appError');
+const bookingController = require('./controllers/bookingController');
 const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
@@ -81,6 +83,12 @@ app.use(
 
 // Compress the text in response
 app.use(compression());
+
+app.post(
+  '/webhook-checkout',
+  bodyParser.raw({ type: 'application/json' }),
+  bookingController.webhookCheckout
+);
 
 // Mount Routes
 app.use('/', viewRouter);
