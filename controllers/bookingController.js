@@ -3,6 +3,7 @@ const Tour = require('../models/tourModel');
 const User = require('../models/userModel');
 const Booking = require('../models/bookingModel');
 const catchAsync = require('../utils/catchAsync');
+const Email = require('../utils/email');
 const factory = require('./handlerFactory');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
@@ -46,7 +47,9 @@ const createBookingCheckout = async (session) => {
   const tour = session.client_reference_id;
   const user = (await User.findOne({ email: session.customer_email })).id;
   const price = session.display_items[0].amount / 100;
+  const url = 'https://long-weekend.herokuapp.com/my-tours';
   await Booking.create({ tour, user, price });
+  await new Email(user, url).sendWelcome();
 };
 
 exports.webhookCheckout = (req, res, next) => {
