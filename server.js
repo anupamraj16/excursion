@@ -5,6 +5,7 @@
 // env variables can be added to process.env by defining them in config.env file
 
 const mongoose = require('mongoose');
+
 const dotenv = require('dotenv');
 dotenv.config({ path: `${__dirname}/config.env` });
 
