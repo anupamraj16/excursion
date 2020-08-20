@@ -48,7 +48,7 @@ const createBookingCheckout = async (session) => {
   const price = session.display_items[0].amount / 100;
   const url = 'https://long-weekend.herokuapp.com/my-tours';
   await Booking.create({ tour, user, price });
-  await new Email(user, url).send('booking', 'Your Tour Is Booked');
+  await new Email(user, url).sendBooking();
 };
 
 exports.webhookCheckout = (req, res, next) => {
