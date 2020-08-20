@@ -84,6 +84,8 @@ block content
       .cta__content
         h2.heading-secondary What are you waiting for?
         p.cta__text= `${tour.duration} days. 1 adventure. Infinite memories. Make it yours today!`
+        a(href='https://stripe.com/docs/testing#cards' target='_blank' style="font-size: 1.5rem") Test Credit Cards
+
         
         if user
           button.btn.btn--blue.span-all-rows#book-tour(data-tour-id=`${tour.id}`) Book tour now!
