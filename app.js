@@ -51,6 +51,12 @@ const limiter = rateLimit({
 
 app.use('/api', limiter);
 
+app.post(
+  '/webhook-checkout',
+  bodyParser.raw({ type: 'application/json' }),
+  bookingController.webhookCheckout
+);
+
 // Body-Parser. Reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
@@ -83,12 +89,6 @@ app.use(
 
 // Compress the text in response
 app.use(compression());
-
-app.post(
-  '/webhook-checkout',
-  bodyParser.raw({ type: 'application/json' }),
-  bookingController.webhookCheckout
-);
 
 // Mount Routes
 app.use('/', viewRouter);
